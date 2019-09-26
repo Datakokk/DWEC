@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejemplo 1</title>
+</head>
+<body>
+    <script>
+        'use strict';
+        //
+        /*const,let*/
+        const PI = 3.1416;
+        let cuadrilatero;
+        const forma = pedirFormas()
+        if(forma === 'u'){
+            cuadrilatero = pedirCuadrilatero()
+
+        }
+
+        switch(forma){
+            case 'c':
+                const r = pedirNumero("Especifique el radio de la circunferencia:");
+                console.log("Perimetro: ",2 * PI * r);
+                console.log("Area: ",PI * r * r);
+                break;
+            case 't':
+                const a = pedirNumero("Especifique la base del triángulo:");
+                const b = pedirNumero("Especifique la altura del triángulo:");
+                console.log("Perimetro: ",3 * b);
+                console.log("Area: ",a * b/2);
+                break;
+            case 'u':
+                switch(cuadrilatero){
+                    case 1:
+                        const lado = pedirNumero("Especifique el lado del cuadrado:");
+                        console.log("Perimetro: ",4 * lado);
+                        console.log("Area: ",lado * lado);
+                        break;
+                    case 2:
+                        const baseR = pedirNumero("Especifique la base del rectangulo:");
+                        const alturaR = pedirNumero("Especifique la altura del rectangulo:");
+                        console.log("Perimetro: ",(baseR + alturaR) * 2);
+                        console.log("Area: ",alturaR * baseR);
+                        break;
+                    case 3:
+                        const diagMayor = pedirNumero("Especifique la diagonal mayor:");
+                        const diagMenor = pedirNumero("Especifique la diagonal menor:");
+                        const ladoRombo = pedirNumero("Especifique el lado del rombo:");
+                        console.log("Perimetro: ",ladoRombo * 4);
+                        console.log("Area: ",(diagMayor * diagMenor)/2);
+                        break;
+                }
+                break;
+                case 'p':
+                    document.write("<h2>Por implementar</h2>");
+                console.log("Por implementar");
+                break;
+        }
+
+        function pedirFormas(){
+            let opcion;
+            do{
+                 opcion = prompt("Pulsa:\n(c) -Para circulos y circunferencias\n(t) -Para triangulos\n(u) -Para cuadrilateros\n(p) -Pentagono regular");
+
+                opcion = opcion && opcion.toLocaleLowerCase();
+
+            }while(!(opcion ==='c' || opcion ==='t' || opcion ==='u' || opcion ==='p' || opcion ===null));
+            return opcion;
+        }
+
+        function pedirCuadrilatero(){
+            let opcion;
+
+            do{
+                opcion = prompt("Especifique tipo de cuadrilatero:\n1.- Cuadrado\n2.- Rectangulo\n3.- Rombo");
+
+                opcion = parseInt(opcion);
+    
+            }while(!(!isNaN(opcion) && (opcion >= 1 && opcion <=3)));
+           
+
+            return opcion;
+        }
+
+        function pedirNumero(info){
+            
+            let opcion;
+
+            do{
+                opcion = prompt(info);
+
+                opcion = parseFloat(opcion);
+
+            }while(isNaN(opcion));
+
+            return opcion;
+        }
+    </script>
+</body>
+</html>

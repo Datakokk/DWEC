@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Conversor de Temperaturas</title>
+    <script src="EntradaNumero.js"></script>
+</head>
+<body>
+
+    <script>
+
+        const GF = '\xB0F';
+        const GC = '\xB0C';
+        let tipoConversion;
+        let valor;
+        let resultado;
+        let continuar;
+
+        do{
+            tipoConversion = convertirA();
+            valor = pedirGrados();
+            resultado = conversor(tipoConversion,valor);
+            informeConversion(tipoConversion, valor, resultado);
+            continuar = quiereSeguir()
+            
+        }while(continuar == 1);
+
+    //FUNCIONES
+
+        //Funcion que solicita el valor de los grados a convertir.
+        function pedirGrados(){
+            let grados = pedirNumero("Introduce los grados: ");
+            grados = parseFloat(grados);
+            return grados;
+        }
+
+        //Función que selecciona el tipo de conversión que se ha de hacer.
+        function convertirA(){
+            let tipo
+            do{
+                tipo = pedirNumero("\"Conversor de Grados\"\nPulse:\n1 -> Si desea convertir de "+GC+ " a "+GF+".\n2 -> Si desea convertir de "+GF+ " a "+GC+".");
+            }while(!(tipo>= 1 && tipo <= 2));
+            
+            return tipo;
+
+        }
+
+        //Función que realiza la conversión de grados.
+        function conversor(seleccionado,valor){
+            let resultado;
+            (seleccionado<2) ? resultado = convertirC2F(valor) : resultado = convertirF2C(valor);
+
+            return resultado;
+        }
+
+        //Función que pasa de F a C.
+        function convertirF2C(valor) {
+            return (valor-32) * 5 / 9;
+        }
+
+        //Función que pasa de C a F
+        function convertirC2F(valor) {
+            return valor * 9 / 5 + 32;
+        }
+
+        //Funcion que informa la conversión.
+        function informeConversion(seleccionado, gIni, gFin){
+            (seleccionado<2) ? alert(gIni+GC+" es equivalente a "+gFin+GF+".") : alert(gIni+GF+" es equivalente a "+gFin+GC+".");
+        }
+
+        //Funcion que pregunta si quiere seguir en la aplicación.
+        function quiereSeguir(){
+            let tipo
+            do{
+                tipo = pedirNumero("Continuar:\n1 -> Si desea seguir en la aplicación.\n2 -> Si desea salir de la aplicación.");
+            }while(!(tipo>= 1 && tipo <= 2));
+            
+            return tipo;
+
+        }
+            
+        
+    </script>
+</body>
+</html>
