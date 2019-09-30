@@ -36,14 +36,10 @@
             break;
 
             case 2:
-                let contador=0;
+                let contador;
 
                 numeroInicial = numeroEntre0y9999();
-                numeroFinal = numeroInicial;
-                while(numeroFinal >= 1){
-                    numeroFinal = numeroFinal / 10;
-                    contador++;
-                }
+                contador = contarDigitos(numeroInicial);
                 alert(numeroInicial+" tiene "+contador+" cifras.")
              break;
 
@@ -67,7 +63,73 @@
             break;
 
             case 6:
+                let hora;
+                let minutos;
+                let segundos;
+                let contadorDigitos;
 
+                do{
+                    hora = pedirNumero("Introduce la hora: ");
+
+                    if(!(hora >=0 && hora <=23)){
+                        alert("El formato de hora esta entre las 0 y 23 horas");
+                    }
+                    hora = parseInt(hora);
+                }while(!(hora >=0 && hora <=23));
+
+                do{
+                    minutos = pedirNumero("Introduce la minutos: ");
+
+                    if(!(minutos >=0 && minutos <=59)){
+                        alert("El formato de minutos esta entre las 0 y 59 minutos");
+                    }
+                    minutos = parseInt(minutos);
+                }while(!(minutos >=0 && minutos <=59));
+
+                do{
+                    segundos = pedirNumero("Introduce la segundos: ");
+
+                    if(!(segundos >=0 && segundos <=59)){
+                        alert("El formato de segundos esta entre las 0 y 59 segundos");
+                    }
+                    segundos = parseInt(segundos);
+                }while(!(segundos >=0 && segundos <=59));
+                segundos++;
+
+                if(segundos == 60){
+                    segundos = 0;
+                    minutos++;
+                }
+                
+                if(minutos == 60){
+                    minutos = 0;
+                    hora++
+                }
+
+                if(hora == 24){
+                    hora = 0;
+                }
+
+                if(contarDigitos(segundos) == 1){
+                    segundos = "0" + segundos;
+                }else if(segundos== 0){
+                    segundos = "00";
+                }
+
+                if(contarDigitos(minutos) == 1){
+                    minutos = "0" + minutos;
+                }else if(minutos== 0){
+                    minutos = "00";
+                }
+
+                if(contarDigitos(hora) == 1){
+                    hora = "0" + hora;
+                }else if(hora== 0){
+                    hora = "00";
+                }
+                
+                alert(hora+":"+minutos+":"+segundos);
+                
             break;
         }
 
@@ -96,6 +158,16 @@
             }
                 resultado += numero;
             return resultado;
+        }
+
+        function contarDigitos(numero){
+            let contador = 0;
+            while(numero >= 1){
+                numero = numero / 10;
+                contador++;
+            }
+
+            return contador;
         }
     </script>
 </body>
