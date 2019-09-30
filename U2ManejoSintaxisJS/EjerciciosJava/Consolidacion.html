@@ -9,17 +9,94 @@
 </head>
 <body>
     <script>
-        let i;
-        let numeros = [];
         
-        for(i = 0; i < 3; i++){
-            numeros[i] = pedirNumero();
+        let opcionMenu;
+        let numeroInicial;
+        let numeroFinal;
+        
+        do{
+            opcionMenu = pedirNumero("MENÚ\nPulse la opción que desea  ejecutar:\n\n1.-Pedir tres números y mostrarlos ordenados de mayor a menor 1\n 2.-Pedir un número entre 0 y 9999 y decir cuantas cifras tiene.\n  NOTA: Utiliza condiciones.\n 3.-Pedir un número entre 0 y 9999 y mostrarlo con las cifras al revés.\n NOTA: Utiliza el resto \n 4.-Pedir un número entre 0 y 9999 y decir si es capicúa.\n  NOTA: Usa condiciones y el resto.\n 5.-Realiza un programa que pida una fecha y diga si es correcta.\n NOTA: Tener el cuenta los número de días por mes y si el año es capicúa. \n 6.-Pedir una hora de la forma hora, minutos y segundos, y mostrar la hora,los minutos y los segundos en el segundo siguiente.");
+        }while(!(opcionMenu >=1 && opcionMenu <=6))
+
+        opcionMenu = parseInt(opcionMenu);
+
+        switch(opcionMenu){
+
+            case 1:
+                let i;
+                let numeros = [];
+
+                for(i = 0; i < 3; i++){
+                    numeros[i] = pedirNumero();
+                }
+                numeros.sort((a,b) => a + b);
+                for(let j=numeros.length; j >=0 ; j--){
+                    console.log(numeros[j]);
+                }
+            break;
+
+            case 2:
+                let contador=0;
+
+                numeroInicial = numeroEntre0y9999();
+                numeroFinal = numeroInicial;
+                while(numeroFinal >= 1){
+                    numeroFinal = numeroFinal / 10;
+                    contador++;
+                }
+                alert(numeroInicial+" tiene "+contador+" cifras.")
+             break;
+
+            case 3:
+                let resultado;
+
+                numeroInicial = numeroEntre0y9999();
+                resultado = invertirNumero(numeroInicial);
+
+                alert(numeroInicial+" al revés es: "+resultado);
+            break;
+
+            case 4:
+                numeroInicial = numeroEntre0y9999();
+                numeroFinal = invertirNumero(numeroInicial);
+                (numeroFinal == numeroInicial) ? alert(numeroInicial+" Es capicúa.") : alert(numeroInicial+" No es capicúa.");
+            break;
+
+            case 5:
+
+            break;
+
+            case 6:
+
+            break;
         }
-        numeros.sort((a,b) => a - b);
-        for(let j=numeros.length; j >=0 ; j--){
-            console.log(numeros[j]);
+
+        function numeroEntre0y9999(){
+            let numero;
+
+            do{
+                numero = pedirNumero("Introducir un número entre 0 y 9999");
+
+            }while(numero < 0 || numero > 9999);
+
+                return numero;
+
         }
-        console.log(numeros);
+
+        function invertirNumero(numero){
+            let resto;
+            let resultado = "";
+                
+            
+            while(numero >= 10){
+                resto = numero % 10;
+                numero = numero / 10;
+                numero = parseInt(numero);
+                resultado += resto;
+            }
+                resultado += numero;
+            return resultado;
+        }
     </script>
 </body>
 </html>
