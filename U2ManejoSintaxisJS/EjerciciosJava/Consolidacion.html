@@ -59,6 +59,15 @@
             break;
 
             case 5:
+                let dia;
+                let mes;
+                let año;
+                
+                dia = solicitarDatosFecha("Introduce un dia: ","Los dias deben estar comprendidos entre 1 y 31");
+                mes = solicitarDatosFecha("Introduce un mes: ","El mes debe estar comprendidos entre 1 y 12");
+                año = solicitarDatosFecha("Introduce un año: ","El año debe de tener cuatro dígitos");
+                
+              console.log(dia);
 
             break;
 
@@ -68,71 +77,37 @@
                 let segundos;
                 let contadorDigitos;
 
-                do{
-                    hora = pedirNumero("Introduce la hora: ");
+                hora = pedirDatosHora("Introduce la hora: ","El formato de hora esta entre las 0 y 23 horas",23);
 
-                    if(!(hora >=0 && hora <=23)){
-                        alert("El formato de hora esta entre las 0 y 23 horas");
-                    }
-                    hora = parseInt(hora);
-                }while(!(hora >=0 && hora <=23));
+                minutos = pedirDatosHora("Introduce la minutos: ","El formato de minutos esta entre las 0 y 59 minutos",59);
 
-                do{
-                    minutos = pedirNumero("Introduce la minutos: ");
+                segundos = pedirDatosHora("Introduce la segundos: ","El formato de segundos esta entre las 0 y 59 segundos",59);
 
-                    if(!(minutos >=0 && minutos <=59)){
-                        alert("El formato de minutos esta entre las 0 y 59 minutos");
-                    }
-                    minutos = parseInt(minutos);
-                }while(!(minutos >=0 && minutos <=59));
-
-                do{
-                    segundos = pedirNumero("Introduce la segundos: ");
-
-                    if(!(segundos >=0 && segundos <=59)){
-                        alert("El formato de segundos esta entre las 0 y 59 segundos");
-                    }
-                    segundos = parseInt(segundos);
-                }while(!(segundos >=0 && segundos <=59));
                 segundos++;
 
-                if(segundos == 60){
-                    segundos = 0;
-                    minutos++;
-                }
-                
-                if(minutos == 60){
-                    minutos = 0;
-                    hora++
-                }
+                segundos = ponerACero(segundos,60);
+                minutos = agregar(minutos);
 
-                if(hora == 24){
-                    hora = 0;
-                }
+                minutos = ponerACero(minutos,60);
+                hora = agregar(hora);
 
-                if(contarDigitos(segundos) == 1){
-                    segundos = "0" + segundos;
-                }else if(segundos== 0){
-                    segundos = "00";
-                }
+                hora = ponerACero(hora,24);
 
-                if(contarDigitos(minutos) == 1){
-                    minutos = "0" + minutos;
-                }else if(minutos== 0){
-                    minutos = "00";
-                }
+                segundos = mostrarReloj(segundos);
 
-                if(contarDigitos(hora) == 1){
-                    hora = "0" + hora;
-                }else if(hora== 0){
-                    hora = "00";
-                }
+                minutos = mostrarReloj(minutos);
+
+                hora = mostrarReloj(hora);
                 
                 alert(hora+":"+minutos+":"+segundos);
                 
             break;
         }
 
+
+        //Funcionnes
+
+        //Función que solicita un número entre 0 y 9999.
         function numeroEntre0y9999(){
             let numero;
 
@@ -145,6 +120,7 @@
 
         }
 
+        //Función que invierte un número.
         function invertirNumero(numero){
             let resto;
             let resultado = "";
@@ -160,15 +136,73 @@
             return resultado;
         }
 
+        //Función que cuenta la cantidad de dígitos de un número.
         function contarDigitos(numero){
             let contador = 0;
             while(numero >= 1){
                 numero = numero / 10;
                 contador++;
             }
-
             return contador;
         }
+
+        //Función que solicita los elementos del tiempo en hh:mm:ss
+        function pedirDatosHora(msjPedir, msjAdvertencia, final){
+            let tiempo;
+            do{
+                tiempo = pedirNumero(msjPedir);
+
+                if(!(tiempo >=0 && tiempo <=final)){
+                    alert(msjAdvertencia);
+                }
+                tiempo = parseInt(tiempo);
+            }while(!(tiempo >=0 && tiempo <=final));
+
+            return tiempo;
+        }
+
+        //Función que pone a cero, cuando los elementos de una hora llega a su tope.
+        function ponerACero(medida1, valor){
+            if(medida1 == valor){
+                medida1 = 0;
+            }
+            return medida1;
+        }
+
+        //Función que suma uno a los elementos del tiempo cuando se de la situacion.
+        function agregar(medida2){
+            medida2++;
+            return medida2;
+        }
+
+        //Función que muestra la hora según este formato hh:mm:ss
+        function mostrarReloj(medida){
+            if(contarDigitos(medida) == 1){
+                    medida = "0" + medida;
+            }else if(medida== 0){
+                    medida = "00";
+            }
+            return medida;
+        }
+
+        //Función que solicita los datos de una fecha.
+        function solicitarDatosFecha(msjPedir, msjAdvertencia, final){
+            let repite = 0;
+            let dia;
+
+            do{
+                dia = pedirNumero("Introduce un dia:");
+                repite++;
+                
+                if((repite >= 1) && !(dia >= 1 && dia <=31)){
+                    alert("Los dias deben estar comprendidos entre 1 y 31:")
+                }
+            }while(!(dia >= 1 && dia <=31));
+            return dia;
+        }
+
+        
+
     </script>
 </body>
 </html>
