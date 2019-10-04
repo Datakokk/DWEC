@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Enunciados</title>
+    <style>
+        div{
+            margin-left: 3em;
+        }
+    </style>
+</head>
+<body>
+    <h3>Enunciados</h3>
+        <p>1. Explicar qué pasa y por qué en el estado actual:</p>
+        <pre>
+            function trocearArrayEnTrozos(array, tamTrozo) {
+                const nuevoArray = [];
+              
+                let j = 0, cont = 0;
+                for(let i = 0; i < array.length; i++) {
+                  var nuevoNuevoArray = [];
+                  if(j < tamTrozo) {
+                    nuevoNuevoArray[j++] = array[i];
+                  } else {
+                    j = 0;
+                    nuevoArray[cont++] = nuevoNuevoArray;
+                  }
+                }
+              
+                return nuevoArray;
+              }
+        </pre>
+
+        <p> 2. Arreglar el entuerto cambiando lo mínimo posible</p>
+        <p>
+            <ul>
+                <li>trocearArrayEnTrozos(["a", "b", "c", "d"], 2); // debe devolver [["a", "b"], ["c", "d"]].</li>
+                <li>trocearArrayEnTrozos([0, 1, 2, 3, 4, 5], 3); // debe devolver [[0, 1, 2], [3, 4, 5]].</li>
+                <li>trocearArrayEnTrozos([0, 1, 2, 3, 4, 5], 4); // debe devolver [[0, 1, 2, 3], [4, 5]].</li>
+                <li>trocearArrayEnTrozos([0, 1, 2, 3, 4, 5, 6], 3); // debe devolver [[0, 1, 2], [3, 4, 5], [6]].</li>
+                <li>trocearArrayEnTrozos([0, 1, 2, 3, 4, 5, 6, 7, 8], 4); // debe devolver [[0, 1, 2, 3], [4, 5, 6, 7], [8]].</li>
+            </ul>
+        </p>
+
+
+    <h3>Cadenas</h3>
+    
+    <p>  
+        Realizar los métodos correspondientes para:
+        <ol>
+            <li>La palabra más larga de una frase</li>
+            <li>Invertir una frase (no las letras)</li>
+            <li>Sentencia en mayúsculas (primera letra de cada palabra)</li>
+            <li>Emular el método endsWith() (¿qué pasa se si pasa una cadena vacia?¿y si se parte de una cadena vacía)</li>
+            <li>Emular el método repetir cadena (¿qué pasa si el argumento es cero o un números negativo?)</li>
+        </ol>
+    </p>
+</body>
+</html>
