@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../U2ManejoSintaxisJS/EjerciciosJava/EntradaNumero.js"></script>
+</head>
+<body>
+    <script>
+        
+        let opcionMenu;
+        let numeroInicial;
+        let numeroFinal;
+        
+        do{
+            opcionMenu = pedirNumero("MENÚ\nPulse la opción que desea  ejecutar:\n\n1.-La palabra más larga de una frase.\n 2.-Invertir una frase (no las letras).\n 3.-Sentencia en mayúsculas (primera letra de cada palabra).\n 4.-Emular el método endsWith() (¿qué pasa se si pasa una cadena vacia?¿y si se parte de una cadena vacía).\n 5.Emular el método repetir cadena (¿qué pasa si el argumento es cero o un números negativo?).");
+            
+        }while(!(opcionMenu >=1 && opcionMenu <=5))
+
+        opcionMenu = parseInt(opcionMenu);
+
+        switch(opcionMenu){
+
+            case 1:
+                let frase;
+                let cadenaArray;
+                let palabraLarga;
+
+                frase = pedirFrase();
+                cadenaArray = dividirCadena(frase, " ");
+                palabraLarga = palabraMasLarga(cadenaArray);
+                alert("La palabra más larga de "+frase+" es: "+palabraLarga);
+                
+            break;
+
+            case 2:
+                let fraseInvertida;
+                let texto;
+                let arrayDeCadena;
+
+                texto = pedirFrase();
+                arrayDeCadena = dividirCadena(texto, " ");
+                fraseInvertida = invertirFrase(arrayDeCadena);
+                alert(texto+"\n invertida es\n"+fraseInvertida);
+             break;
+
+            case 3:
+                let fraseFinal;
+                let cadena;
+                let arrayCadena;
+                
+                cadena = pedirFrase();
+                arrayCadena = dividirCadena(cadena, " ");
+                fraseFinal = resultaoMayuscula(arrayCadena).join(" ");
+                alert(fraseFinal);
+                
+            break;
+
+            case 4:
+                
+            break;
+
+            case 5:
+                
+            break;
+
+            
+        }
+
+
+        //Funcionnes
+
+        //Función que solicita una frase.
+        function pedirFrase(texto = "Introduce una frase: ",frase = "Escriba una frase aquí"){
+            let enunciado;
+                enunciado = prompt(texto, frase);
+            
+                return enunciado;
+
+        }
+
+        //Función divide una frase según el separador que le pasemos.
+        function dividirCadena(cadena, separador){
+            
+            let arrayCadena = cadena.split(separador);
+                
+            return arrayCadena;
+        }
+
+        //Función que encuentra la palabra mas larga de una frase
+        function palabraMasLarga(arrayCadena){
+            let palabraLarga = 0;
+            let posicionLarga;
+            let i;
+            
+            for(i = 0; i < arrayCadena.length; i++){
+                if(arrayCadena[i].trim().length > palabraLarga){
+                    palabraLarga = arrayCadena[i].trim().length;
+                    posicionLarga = i;
+                }		
+                
+            }
+            return arrayCadena[posicionLarga];
+        }
+
+        //Función que invierte una frase
+        function invertirFrase(arrayCadena){
+            let fraseInvertida;
+
+            fraseInvertida = arrayCadena.reverse().join(" ");
+
+            return fraseInvertida;
+            
+        }
+
+        //Función que convierte la primera letra de una palabra a Mayuscula
+        function resultaoMayuscula(arrayCadena){
+            let arrayResultado = [];
+            for(i = 0; i < arrayCadena.length; i++){
+                       arrayResultado[i] = primeraLetraMayuscula(arrayCadena[i]);
+                       
+                
+            }
+            return arrayResultado;
+        }
+
+        //Función que convierte la primera letra de una palabra a Mayuscula
+        function primeraLetraMayuscula(palabra){
+            let letra;
+            letra = palabra.charAt(0).toUpperCase();
+			palabra = palabra.substring(1,palabra.length);
+			palabra = letra + palabra;
+            return palabra;
+            
+        }
+    </script>
+</body>
+</html>
