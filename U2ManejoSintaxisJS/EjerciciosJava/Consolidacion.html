@@ -29,10 +29,8 @@
                 for(i = 0; i < 3; i++){
                     numeros[i] = pedirNumero();
                 }
-                numeros.sort((a,b) => a + b);
-                for(let j=numeros.length; j >=0 ; j--){
-                    console.log(numeros[j]);
-                }
+                console.log(numeros.sort((a,b) => a - b).reverse());
+                
             break;
 
             case 2:
@@ -63,11 +61,11 @@
                 let mes;
                 let año;
                 
-                dia = solicitarDatosFecha("Introduce un dia: ","Los dias deben estar comprendidos entre 1 y 31");
-                mes = solicitarDatosFecha("Introduce un mes: ","El mes debe estar comprendidos entre 1 y 12");
-                año = solicitarDatosFecha("Introduce un año: ","El año debe de tener cuatro dígitos");
+                dia = solicitarDatosFecha("Introduce un dia: ","Los dias deben estar comprendidos entre 1 y 31",31);
+                mes = solicitarDatosFecha("Introduce un mes: ","El mes debe estar comprendidos entre 1 y 12",12);
+                año = pedirAnio("Introduce un año: ","El año debe de tener cuatro dígitos");
                 
-              console.log(dia);
+                alert(dia+"/"+mes+"/"+año);
 
             break;
 
@@ -191,14 +189,30 @@
             let dia;
 
             do{
-                dia = pedirNumero("Introduce un dia:");
+                dia = pedirNumero(msjPedir);
                 repite++;
                 
-                if((repite >= 1) && !(dia >= 1 && dia <=31)){
-                    alert("Los dias deben estar comprendidos entre 1 y 31:")
+                if((repite >= 1) && !(dia >= 1 && dia <=final)){
+                    alert(msjAdvertencia)
                 }
-            }while(!(dia >= 1 && dia <=31));
+            }while(!(dia >= 1 && dia <=final));
             return dia;
+        }
+
+        //Función que solicita el año
+        function pedirAnio(msjPedir, msjAdvertencia){
+            
+            let year;
+            let digitos;
+            
+            do{
+                year = pedirNumero(msjPedir);
+                digitos = contarDigitos(year);
+                if(!(digitos == 4)){
+                    alert(msjAdvertencia);
+                }
+            }while(!(digitos == 4));
+            return year;
         }
 
         
