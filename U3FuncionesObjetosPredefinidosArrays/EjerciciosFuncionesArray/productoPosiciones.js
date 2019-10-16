@@ -6,7 +6,7 @@
     let resultado;
     
     
-    arrayAleatorio = generarArray(8,15);
+    arrayAleatorio = generarArray(15,8);
     numPar = productoPar(arrayAleatorio);
     numImpar = productoImpar(arrayAleatorio);
     resultado = iguales(numPar,numImpar);
@@ -15,11 +15,10 @@
     /*** FUNCIONES ***/
     //Función que genera un array aleatorio 
     function generarArray(max, min){
-        let aux;
-        let tamaño = generaNumAleatorio(min, max);
-        let array= [];
-
-        if(min > max) {aux = min; min = max; min =aux;}
+        //let aux;
+        //let tamaño = generaNumAleatorio(min, max);
+        //let array= [];
+        //if(min > max) {aux = min; min = max; min =aux;}
 
         array.length = tamaño;
     
