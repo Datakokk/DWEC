@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //pedir primera fecha dd/mm/aaaa
+        //pedir segunda fecha
+        //calcular diferencia dias
+
+        const primeraFecha = pedirFecha();
+        const segundaFecha = pedirFecha();
+        const dif = calcularDiferenciaEnDias(primeraFecha,segundaFecha);
+        imprimirDiferenciasEnDias(dif);
+
+        //Formato fechas "dd/mm/aaaa"
+        function calcularDiferenciaEnDias(fecha1, fecha2){
+            fecha1 = Date.fecha1.split('/').reverse().join('/');
+            fecha2 = Date.fecha1.split('/').reverse().join('/');
+
+            return Math.abs((fecha2 -fecha1) / (24 * 60 * 60 * 1000));
+        }
+
+        //Calcular dias minutos y segundos.
+
+        function imprimirDiferenciasEnDias(dif){
+            document.write(" "+ dif+" ");
+        }
+
+        //Devolver una fecha en el formato dd/mm/aaa
+        function pedirAño(){
+            let dia;
+            let mes;
+            let año;
+            do{
+                dia = pedirNumero("Introduce el dia:");
+            }while(!(dia >=1 && dia <=31));
+            do{
+                pedirNumero("Introduce el mes:");
+            }while();
+            do{
+                pedirNumero("Introduce el año:");
+            }while();
+
+            return `${dia}/${mes}/${año}`;
+
+        }
+
+        function pedirNumero(texto = "Introduce un número: ", numero = 18){
+            let dato;
+            let referencia;
+
+            do{
+                dato = prompt(texto, numero);
+                referencia = isNaN(dato);
+                //referencia ? alert("Debe de introducir un número:") : false;
+                referencia && alert('Debe de introducir un número:');
+            }while(referencia);
+            
+            return dato;
+
+        }    
+    </script>
+</body>
+</html>
