@@ -62,10 +62,27 @@
                 let dia;
                 let mes;
                 let año;
+                let añoBisiesto;
                 
-                dia = solicitarDatosFecha("Introduce un dia: ","Los dias deben estar comprendidos entre 1 y 31",31);
-                mes = solicitarDatosFecha("Introduce un mes: ","El mes debe estar comprendidos entre 1 y 12",12);
                 año = pedirAnio("Introduce un año: ","El año debe de tener cuatro dígitos");
+                añoBisiesto = bisiesto(año);
+                mes = solicitarDatosFecha("Introduce un mes: ","El mes debe estar comprendidos entre 1 y 12",12);
+                mes = parseInt(mes);
+                dia = solicitarDatosFecha("Introduce un dia: ","Los dias deben estar comprendidos entre 1 y 31",31);
+
+                switch(mes){
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11:
+                        (dia > 30) ? dia = "Este mes solo tiene 30 dias" :dia = dia;
+                        
+                        break
+                    case 2:
+                        (!añoBisiesto && !(dia < 29)) ? dia = "Año no bisiesto,febrero tiene 28 dias;": "";
+                        (añoBisiesto && (dia > 29)) ? dia = "Año bisiesto que solo puede tener 29 dias": "";
+                       break;
+                }
                 
                 alert(dia+"/"+mes+"/"+año);
 
@@ -215,6 +232,10 @@
                 }
             }while(!(digitos == 4));
             return year;
+        }
+
+        function bisiesto(año){
+            return (!(año % 4 && año % 100) || !(año % 400)) ? true : false;
         }
 
         
