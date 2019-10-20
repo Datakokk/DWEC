@@ -15,10 +15,10 @@
     /*** FUNCIONES ***/
     //Función que genera un array aleatorio 
     function generarArray(max, min){
-        //let aux;
-        //let tamaño = generaNumAleatorio(min, max);
-        //let array= [];
-        //if(min > max) {aux = min; min = max; min =aux;}
+        let aux;
+        let tamaño = generaNumAleatorio(min, max);
+        let array= [];
+        if(min > max) {aux = min; min = max; min =aux;}
 
         array.length = tamaño;
     
