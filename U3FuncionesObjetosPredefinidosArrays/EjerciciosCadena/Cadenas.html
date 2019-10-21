@@ -65,6 +65,15 @@
             break;
 
             case 5:
+                let textoRepeat;
+                let cantidad;
+                let salida;
+
+                textoRepeat = pedirFrase("Introduce una palabra: ");
+                cantidad = pedirNumero("Introduce el número de veces que se repetirá: ")
+                cantidad = parseInt(cantidad);
+                salida = emulaRepeat(textoRepeat, cantidad);
+                alert(salida);
                 
             break;
 
@@ -123,6 +132,16 @@
             return (palabraBuscada == buscado) ? true : false;
 
         }
+
+        //Función que emula a repeat()
+        function emulaRepeat(cadena, valor){
+            let resultado = "";
+
+            for (let i = 0; i < valor; i++) {
+                    resultado += cadena;
+            }
+            return resultado;
+         }
     </script>
 </body>
 </html>
