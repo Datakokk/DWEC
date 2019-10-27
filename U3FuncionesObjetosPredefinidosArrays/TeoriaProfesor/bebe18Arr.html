@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src ="bebes18.js"></script>
+</head>
+<body>
+    <script>
+        
+        //Matriz de matrices
+        const csvAMatriz = (datos, sepReg = '\n', sepCampos = ';') =>
+            datos
+                .split(sepReg)
+                .filter(reg => Boolean(reg.trim()))
+                .map(reg => reg.split(sepCampos)
+                        .filter(campo => Boolean(campo.trim())))
+                .filter(reg => Boolean(reg.length && reg.length === 4));
+        
+        const extraerCabecera = array => array.shift();
+        const quitarAlgoCadena = (cadena, algo) => cadena.split(algo).join('');
+
+        const quitarPuntosNumeros = datos => 
+            datos.map(reg => reg
+                .map((campo, pos) => (pos % 2) ? Number(quitarAlgoCadena(campo, '.')) : campo)
+                ); 
+
+        //const juntarYOrdenar = array => array.concat(array.map(reg => reg.splice(0,2))).sort((a,b) => a[1] -b[1]);
+        const juntarYOrdenar = array => array.reduce((acc,v,i,a)=>{acc.push(v.splice(0,2)),acc.push(v); return acc},[]).sort((a,b) => a[1] -b[1]);
+
+        const datos = csvAMatriz(bebes18);
+        const cabecera = extraerCabecera(datos);
+        const todos = quitarPuntosNumeros(datos);
+        const ordenados = juntarYOrdenar(todos);
+        
+        </script>
+</body>
+</html>
