@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src ="bebes182.js"></script>
+</head>
+<body>
+    <script>
+        //Matriz de matrices
+        const csvAMatriz = (datos, sepReg ='\n', sepCampos =';') =>
+            datos
+                .split(sepReg)
+                .filter(reg => Boolean(reg.trim()))
+                .map(reg => reg.split(sepCampos)
+                        .filter(campo => Boolean(campo.trim())))
+                .filter(reg => Boolean(reg.length && reg.length === 4));
+
+        const csvAObjetos = (datos, sepReg ='\n', sepCampos =';') => {
+            const matriz = csvAMatriz(datos, sepReg, sepCampos);
+            const cabecera = extraerCabecera(matriz);
+
+            return matriz.map(reg => unObjeto(cabecera,reg));
+
+        }
+
+        //r = ["MIGUEL";"347";;"MALAK";"298";]
+        //cab = ["NOMBRE_NIÑO","NUMERO_NIÑO","NOMBRE_NIÑA","NUMERO_NIÑA"]
+        
+        //[{"NOMBRE_NIÑO":"MIGUEL ANGEL","NUMERO_NIÑO":"347","NOMBRE_NIÑA":"MALAK";"NUMERO_NIÑA":"298"}];
+        const unObjeto = (cab, r) => 
+        r.reduce((obj, cad, pos) =>{
+                obj[cab[pos]] =cad;
+                return obj;
+        },{})
+
+        const unObjetoFijo = r =>({
+            NOMBRE_NIÑO:r[0],
+            NUMERO_NIÑO:r[1],
+            NOMBRE_NIÑA:r[2],
+            NUMERO_NIÑA:r[3],
+        })
+
+        const csvAObjetos2 = (datos, sepReg='\n', sepCampos=';') => {
+            const matriz = csvAMatriz(datos, sepReg, sepCampos);
+            extraerCabecera(matriz);
+            const todos = dividirYJuntar(matriz,2);
+            return todos.map(reg => unObjeto(["Nombre", "Veces"], reg));
+        }
+         
+        const extraerCabecera = array => array.shift();
+        const quitarAlgoCadena = (cadena, algo) => cadena.split(algo).join('');
+
+        const quitarPuntosNumeros = datos => 
+            datos.map(reg => { reg['Veces'] = Number(quitarAlgoCadena(reg['Veces'], '.'));
+            return reg;
+            }); 
+
+        const dividirYJuntar = (array, num)=> array
+                .concat(array.map(reg => reg.splice(0,num)));
+        
+        let res = csvAObjetos2(bebes18);
+        res = quitarPuntosNumeros(res);
+
+        res.sort((b,a) => a.Veces - b.Veces);
+        </script>
+</body>
+</html>
