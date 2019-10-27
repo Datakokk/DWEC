@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+   
 </head>
 <body>
     <script>
@@ -19,10 +20,10 @@
 
         //Formato fechas "dd/mm/aaaa"
         function calcularDiferenciaEnDias(fecha1, fecha2){
-            fecha1 = Date.fecha1.split('/').reverse().join('/');
-            fecha2 = Date.fecha1.split('/').reverse().join('/');
+            fecha1 = Date.parse(fecha1.split('/').reverse().join('/'));
+            fecha2 = Date.parse(fecha2.split('/').reverse().join('/'));
 
-            return Math.abs((fecha2 -fecha1) / (24 * 60 * 60 * 1000));
+            return Math.abs(Math.trunc((fecha2 -fecha1) / (24 * 60 * 60 * 1000)));
         }
 
         //Calcular dias minutos y segundos.
@@ -32,22 +33,59 @@
         }
 
         //Devolver una fecha en el formato dd/mm/aaa
-        function pedirAño(){
+        function pedirFecha(){
             let dia;
             let mes;
             let año;
-            do{
-                dia = pedirNumero("Introduce el dia:");
-            }while(!(dia >=1 && dia <=31));
-            do{
-                pedirNumero("Introduce el mes:");
-            }while();
-            do{
-                pedirNumero("Introduce el año:");
-            }while();
-
+            
+            dia = solicitarDatosFecha("Introduce un dia: ","Los dias deben estar comprendidos entre 1 y 31",31);
+            mes = solicitarDatosFecha("Introduce un mes: ","El mes debe estar comprendidos entre 1 y 12",12);
+            año = pedirAnio("Introduce un año: ","El año debe de tener cuatro dígitos");
+            
             return `${dia}/${mes}/${año}`;
 
+        }
+
+        //Función que solicita los datos de una fecha.
+        function solicitarDatosFecha(msjPedir, msjAdvertencia, final){
+            let repite = 0;
+            let fecha;
+
+            do{
+                fecha = pedirNumero(msjPedir);
+                repite++;
+                
+                if((repite >= 1) && !(fecha >= 1 && fecha <=final)){
+                    alert(msjAdvertencia)
+                }
+            }while(!(fecha >= 1 && fecha <=final));
+            return fecha;
+        }
+
+         //Función que solicita el año
+         function pedirAnio(msjPedir, msjAdvertencia){
+            
+            let year;
+            let digitos;
+            
+            do{
+                year = pedirNumero(msjPedir);
+                digitos = contarDigitos(year);
+                if(!(digitos == 4)){
+                    alert(msjAdvertencia);
+                }
+            }while(!(digitos == 4));
+            return year;
+        }
+
+        //Función que cuenta la cantidad de dígitos de un número.
+        function contarDigitos(numero){
+            let contador = 0;
+            while(numero >= 1){
+                numero = numero / 10;
+                contador++;
+            }
+            return contador;
         }
 
         function pedirNumero(texto = "Introduce un número: ", numero = 18){
