@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>worldcities</title>
+    <script src="worldcities.js"></script>
+ </head>
+<body>
+    <script>
+        const csvAMatriz = (datos, sepReg = '\n', sepCampos = ';') => datos
+                            .split(sepReg)
+                            .filter(reg => Boolean(reg.trim()))
+                            .map(reg => reg.split(sepCampos)
+                                        .filter(campo => Boolean(campo.trim())))
+                            .filter(reg => Boolean(reg.length && reg.length == 11));
+
+        const extraerCabecera = array => array.shift();
+
+        
+        const filtrarPorNumCampo = (matriz, numCampo, valor) => matriz
+                .filter(reg => reg[numCampo] == valor);
+        
+        
+        const realizarTabla = (cabecera, matriz, caption = "Worldcities") => {
+            document.write(`
+                    <table border style="border-collapse:collapse;">
+                    <caption>${caption}</caption>
+                    <thead>`);
+            for(i = 0; i<cabecera.length; i++){
+            document.write(`<th>${cabecera[i]}</th>`);
+            }
+            document.write(`</tr></thead><tbody>`); 
+                for(i = 0; i<matriz.length; i++){
+                    document.write(`<tr>`);
+                    for (let j = 0; j < matriz[i].length; j++) {
+                        document.write(`<td>${matriz[i][j]}</td>`);
+                    }
+            document.write(`<tr>`);
+            }
+        }
+
+        //Me puede ayudar con esta función por favor, lo esta ordenando porque da la casualidad que ciudades es el primer elemento de la fila, en realidad esta funcion solo hace "matriz.sort()";
+        const ordenarPorCampo = (matriz, campo) => matriz
+                 .map((v,campo,matriz) =>{matriz[campo]; return v}).sort();
+        
+        
+        const array  = csvAMatriz(worldcities);
+        const cabecera = extraerCabecera(array);
+        const spain = filtrarPorNumCampo(array,4,"Spain");
+        const orden = ordenarPorCampo(spain,0);
+        const tabla = realizarTabla(cabecera,orden);
+    
+    
+    </script>
+    
+</body>
+</html>
