@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>worldcities</title>
+    <title>Worldcities Arr</title>
     <script src="worldcities.js"></script>
  </head>
 <body>
@@ -41,18 +41,24 @@
             }
         }
 
-        //Me puede ayudar con esta función por favor, lo esta ordenando porque da la casualidad que ciudades es el primer elemento de la fila, en realidad esta funcion solo hace "matriz.sort()";
-        const ordenarPorCampo = (matriz, campo) => matriz
-                 .map((v,campo,matriz) =>{matriz[campo]; return v}).sort();
         
+        //Si el campo que se quiere ordenar es de Cadena.
+        const ordenarPorCampo = (matriz, campo) => matriz
+                    .sort((a,b)=>(a[campo] >= b[campo]) ? 1: -1)
+
+        //Si el campo que se quiere ordenar es numerico
+        const ordenarPorCampo2 = (matriz,campo) =>matriz
+                    .map(linea => linea
+                                    .map(v =>v.split(',').join('.')))
+                                    .sort((a,b)=>a[campo] - b[campo]);
+       
         
         const array  = csvAMatriz(worldcities);
         const cabecera = extraerCabecera(array);
         const spain = filtrarPorNumCampo(array,4,"Spain");
         const orden = ordenarPorCampo(spain,0);
         const tabla = realizarTabla(cabecera,orden);
-    
-    
+
     </script>
     
 </body>
