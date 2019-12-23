@@ -3,42 +3,127 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
+	<title>Hoo Hey How(v2)</title>
 	<link rel="stylesheet" href="">
-	<style>
-		td{
-			font-size: 13em;
-		}
-	</style>
 </head>
 <body>
 	<script>
-		let gallina = '\ud83d\udc14';
-		let calabaza = '\ud83c\udf83';
-		let tigre = '\ud83d\udc2f';
-		let gamba = '\ud83e\udd90';
-		let pescado = '\ud83d\udc20';
-		let cangrejo = '\ud83e\udd80';
+		const carasDado = ["🎃", "🐓", "🐟", "🐯", "🦀", "🦐"];
+		let dinero = 50;
 
-		const tabla = 
-		`<table border>
-			<caption>Hoo Hey How</caption>
-			<tbody>
-				<tr>
-					<td>${gallina}</td>
-					<td>${calabaza}</td>
-					<td>${tigre}</td>
-				</tr>
-				<tr>
-					<td>${gamba}</td>
-					<td>${pescado}</td>
-					<td>${cangrejo}</td>
-				</tr>
-		</tbody>
-		</table>`;
+		function main(){
 
-		document.write(tabla);
+			let apuesta = apostar(50);
+			console.log("Apuesta:\n"+apuesta);
+			let lanzar = tirarDado();
+			console.log("Dados lanzados:\n"+lanzar);
+			let coinciden = comparando(lanzar, apuesta);
+			console.log(coinciden);
+			let cantidadDados = contarElem(lanzar);
+			
+			return controladorGaPer(coinciden, apuesta, cantidadDados);;
+		}
 
+		function aleatorio(a, b){
+			max = Math.max(a,b);
+			min = Math.min(a,b);
+
+			return Math.floor(Math.random() * (max - min) + 1) + min;
+		}
+
+
+		function seleccionarImagen(){
+			return carasDado[aleatorio(0,5)];
+		}
+
+		function tirarDado(){
+			let array = [];
+			for (let i = 0; i < 3; i++) {
+				array[i] = seleccionarImagen();
+			}
+			return array;
+		}
+
+		function contarElem(array){
+			array =  array.reduce((obj, v, i)=>{
+				obj[v] = (obj[v] || 0) +1;
+				return obj;
+			},{})
+
+			let elecontados = Object.entries(array);
+			return elecontados;
+		}
+
+		function apostar(dinero){
+			let vecesApostada = aleatorio(0,3);
+			let resultado;
+			
+			if(vecesApostada == 3){
+				resultado = generador(vecesApostada, dinero);
+			}else if(vecesApostada == 2){
+				resultado = generador(vecesApostada, dinero);
+			}else if(vecesApostada == 1){
+				resultado = generador(vecesApostada, dinero);
+			}
+			return resultado;
+		}
+
+		function generador(veces, dinero){
+			let array = [];
+			for (let i = 0; i < veces; i++) {
+				array[i] = seleccionarImagen();
+			}
+				array = array.filter((valor, i, a) => a[i+1]!==valor)
+				.map(valor => `${valor}:${aleatorio(1,dinero/veces)}`);
+			return array;
+		}
+
+		function comparando(arrTirada, arrApuesta){
+			let aux = [];
+			let aArray = arrApuesta.map(ele => ele.split(':'));
+			arrTirada = arrTirada.map(ele => ele.codePointAt(0));
+			
+			for (let i = 0; i < arrApuesta.length; i++) {
+				if(arrTirada.includes(aArray[i][0].codePointAt(0))){
+					aux[i] = aArray[i];
+				}
+			}
+			return aux.filter(ele => Boolean(ele));
+		}
+
+		function haGanado(comparando, obj){
+			
+			let min = Math.min(comparando.length,obj.length);
+			let max = Math.max(comparando.length,obj.length);
+			
+			for (let i = 0; i < min; i++) {
+				for(let j = 0; j < max; j++){
+					if(comparando[i][0].codePointAt(0) == obj[j][0].codePointAt(0)){
+						 dinero = dinero + (comparando[i][1]*obj[j][1]);
+					}
+				}
+			}
+			return dinero;
+		}
+		
+		
+		function haPerdido(apostado){
+			
+			let cantidadRes = apostado.map(ele => ele.split(':'))
+										.map(v => v = v[1])
+										.reduce((acc, v)=>Number(acc)+Number(v));
+			dinero = dinero - cantidadRes;
+			return dinero;
+		}
+
+		function controladorGaPer(comparando, apostado, array2){
+			return (!comparando.length) ? haPerdido(apostado) : haGanado(comparando, array2);
+		}
+		
 	</script>
 </body>
 </html>
+
+
+
+
