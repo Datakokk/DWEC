@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Worldcities Obj</title>
+    <script src="worldcities.js"></script>
+</head>
+<body>
+   <script>
+        
+        const lanzador =(function(){
+            const csvAMatriz = (datos, sepReg = '\n', sepCampo = ';') => datos
+                    .split(sepReg)
+                    .filter(linea => Boolean(linea.trim()))
+                    .map(linea => linea.split(sepCampo))
+                    .filter(reg => reg.length == 11);
+
+            const filtrarPorNumeroCampo = (matriz, campo, valor)=> matriz
+                    .filter(reg => reg[campo] == valor);
+
+            let extraerCabecera = datosMatriz => datosMatriz.shift();
+            
+            const csvAObjetos = (datosGen) => {
+                let datosMatriz = csvAMatriz(datosGen);
+                let cabecera = extraerCabecera(datosMatriz);
+                let spain = filtrarPorNumeroCampo(datosMatriz, 4, 'Spain');
+
+                return spain.map(reg => unObjeto(cabecera,reg));
+            }
+
+            const unObjeto = (cabecera, linea) => linea
+                    .reduce((obj,valor,i) => {
+                            obj[cabecera[i]] = valor; 
+                            return obj;
+                        },{});
+
+            
+            const realizarTabla = (cabecera, body, caption = "Worldcities") => {
+                let cadenas = [];
+
+                let thead = '<tr>' + cabecera.reduce((acc, valor) => (acc + `<th>${valor}</th>`),"") + '</th>';
+                let tbody = body.map(linea => `<tr>${linea.reduce((acc, valor)=>(acc +`<td>${valor}</td>`),"")}</tr>`).join('');
+                
+
+                cadenas.push('<table border style="border-collapse:collapse;">');
+                cadenas.push(`<caption>${caption}</caption>`);
+                cadenas.push(`<thead>${thead}</thead>`);
+                cadenas.push(`<tbody>${tbody}</tbody>`);
+                return cadenas.join('');
+            }
+            
+            const ordenar = (matriz, campo)=>matriz.map(linea => linea.map(valor => valor.split(',').join('.')))
+                                                    .sort((a,b)=>a[campo] - b[campo]);
+            const ordenar2 = (matriz, campo)=>matriz.sort((a,b)=>(a[campo] >= b[campo]) ? 1: -1);
+
+            const main = (datos)=>{
+                let arrayObjs = csvAObjetos(datos);
+                let cabecera = Object.keys(arrayObjs[0]); 
+                let body = arrayObjs.map(fila => Object.values(fila));
+                let bodyOrdenado = ordenar(body,2);
+                let tabla  = realizarTabla(cabecera,bodyOrdenado);
+                
+                return document.write(tabla);
+            }
+
+            return {iniciar:main};
+        })();
+  
+    </script>
+     <script>
+            lanzador.iniciar(worldcities);
+        </script>
+</body>
+</html>
