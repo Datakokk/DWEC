@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dom 2</title>
+    <script>
+        
+    </script>
+</head>
+<body>
+    <div id="info">
+
+        <ul class="lista">
+            <li><a href="">item 1</a></li>
+            <li><a href="">item 2</a></li>
+            <li><a href="">item 3</a></li>
+            <li><a href="">item 4</a></li>
+            <li><a href="">item 5</a></li>
+        </ul>
+        <br>
+        <textarea name="contenedor" id="" cols="30" rows="10"></textarea>
+        <br>
+        <button>Copiar lista</button>
+    </div>
+    <script>
+        
+        const boton = document.querySelector('button');
+        const lasAas = document.querySelectorAll('.lista a');
+        const txtArea = document.getElementsByName('contenedor')[0];
+
+        boton.addEventListener('click', hacerLista, false);
+
+        function hacerLista(evt){
+            const arrayAas = Array.from(lasAas);
+
+            const valor = arrayAas.map(a => a.firstChild.nodeValue).join('\n');
+
+            txtArea.value = valor;
+        }
+    </script>
+</body>
+</html>
