@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Expandir texto</title>
+    <style>
+        .esconder{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <p>Una muestra de texto <a data-estado-proximo = "Leer menos...." href="#">Leer más.....</a><span class="esconder">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates corporis maxime reiciendis fuga inventore id tempora cupiditate delectus perferendis ipsam! Nam quam amet possimus sint. Dolores id aliquam quo nisi officia tenetur, enim incidunt deleniti debitis minima esse repellendus rerum unde repudiandae amet deserunt magni praesentium earum nulla nostrum, architecto aut pariatur cupiditate! Earum, placeat cum architecto asperiores itaque laboriosam dolorem modi tempore. Nam molestias consequuntur quis blanditiis maxime porro ex neque at facilis debitis. Repellendus minima similique nam dolores. Eum expedita magnam alias, distinctio veritatis culpa cupiditate id consectetur ea laudantium fugit aliquid, molestias iure eius unde quae odio?</span>
+        </p>
+    </div>
+    <script>
+        const anchor = document.querySelector('a');
+        const span = document.querySelector('span');
+
+        anchor.addEventListener('click', pulsadoAnchor, false);
+
+        function pulsadoAnchor(evt){
+            span.classList.toggle('esconder');
+            const valorAnterior = anchor.firstChild.nodeValue;console.log("1"+valorAnterior);;
+
+            anchor.firstChild.nodeValue = anchor.dataset.estadoProximo;console.log("2"+anchor.firstChild.nodeValue);
+
+            anchor.dataset.estadoProximo = valorAnterior;console.log("3"+anchor.dataset.estadoProximo);
+
+            //[]=[]forma de intercambiar los valores un atajo.
+        }
+
+
+    </script>
+</body>
+</html>
