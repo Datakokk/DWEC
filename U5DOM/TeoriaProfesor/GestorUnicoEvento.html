@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gestor unico</title>
+    <script>
+        const sitios = `Google|www.google.es||YouTube|www.youtube.es||DuckDuckGo|www.duckduckgo.com||Wikipedia|es.wikipedia.org||stackoverflow|es.stackoverflow.com`;
+    </script>
+</head>
+<body>
+    <main>
+        <!-- <div>
+            <a href=""></a>       [[nom. dir],[nom,dir] ]estructura que tiene que tener cada div
+            <span></span>
+        </div> -->
+    </main>
+    <script> 
+
+        const app = (function(){
+
+            function main(){
+                const datos = transformarDatos(sitios);
+
+                construirDOM(datos);
+            }
+
+            function transformarDatos(datos){
+                return datos
+                    .split('||')
+                    .filter(r => Boolean(r.trim()))
+                    .map(r => r.split('|')
+                     .filter(r => Boolean(r.trim())))
+                    .filter(r => r.length == 2)
+            }
+
+            function construirDOM(arrDatos){
+                const frag = document.createDocumentFragment();
+
+                arrDatos.forEach(d => {
+                    let contenedor = document.createElement('div');
+                    let elemento = document.createElement('a');
+                    let info = document.createElement('span');
+
+                    //Enlace
+                    elemento.href = '#';//d[1]
+                    elemento.appendChild(document.createTextNode(d[0]));
+                    elemento.addEventListener('click', gestorClick);
+
+                    //Info Veces
+                    info.appendChild(document.createTextNode('Visitado 0 veces'));
+                    
+                    contenedor.appendChild(elemento);
+                    contenedor.appendChild(info);
+                    frag.appendChild(contenedor);
+                });
+
+                document.querySelector('main').appendChild(frag);
+            }
+
+            function gestorClick(evt){
+
+                const infoPulsado = this.nextElementSibling;
+                console.log(infoPulsado.textContent);
+
+                const array = infoPulsado.textContent.split(' ').filter(d => Boolean(d));
+
+                array[1] = Number(array[1]) + 1;
+                array[2] = array[1] === 1 ? 'vez.' : 'veces';
+
+                infoPulsado.textContent = array.join(' ');
+            }
+            return {lanzar:main};
+        })();
+
+        app.lanzar();
+      
+    </script>
+</body>
+</html>
