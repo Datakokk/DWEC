@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>dom3</title>
+    <script>
+        
+    </script>
+</head>
+<body>
+    <div id="info">
+
+        <!-- <ul class="lista">
+            <li><a href="">item 1</a></li>
+            <li><a href="">item 2</a></li>
+            <li><a href="">item 3</a></li>
+            <li><a href="">item 4</a></li>
+            <li><a href="">item 5</a></li>
+        </ul> -->
+        <br>
+        <textarea name="contenedor" id="" cols="30" rows="10"></textarea>
+        <br>
+        <button>Copiar lista</button>
+    </div>
+    <script>
+        const datos = `
+        item 1
+        item 2
+        item 3
+        item 4
+        item 5`;
+
+        const boton = document.querySelector('button');
+        const div = document.querySelector('#info');
+        const txtArea = document.getElementsByName('contenedor')[0];
+        txtArea.value = datos;
+
+        boton.addEventListener('click', hacerLista, false);
+
+        function hacerLista(evt){
+            const datos = txtArea.value.split('\n');
+            // if(div.firstElementChild.tagName == 'UL')
+            //     div.removeChild(div.firstElementChild);
+            const ul = document.createElement('ul');
+            ul.setAttribute('class', 'lista');
+
+            datos
+                .filter(dato => Boolean(dato.trim()))
+                .forEach(dato => {
+                let li = document.createElement('li');
+                let a = document.createElement('a');
+                let txt = document.createTextNode(dato);
+                a.appendChild(txt);
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+            if(div.firstElementChild.tagName == 'UL'){
+                div.replaceChild(ul,div.firstElementChild);console.log(div.firstElementChild);}
+            else{
+                div.insertBefore(ul,txtArea.previousElementSibling);
+                console.log(txtArea.previousElementSibling);
+            }
+        }
+    </script>
+</body>
+</html>
