@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eventos</title>
+    <style>
+        div{
+            width: 6em;
+            line-height: 2;
+            border:1px solid;
+        }
+    </style>
+</head>
+<body>
+    <div>!Pulsame 1¡</div><br>
+    <div>!Pulsame 2¡</div><br>
+    <input type="text" autofocus><br>
+    
+
+    <script>
+        divs = document.querySelectorAll('div');
+        
+        divs.forEach(d => d.addEventListener('click', function(evt){
+
+            console.dir(this);
+            console.log(this);
+            console.dir(evt.target);
+            console.log(evt.target);
+            console.dir(evt);
+            console.log(evt);
+            console.dir(evt.currentTarget);
+            console.log(evt.currentTarget);
+        }, true))
+            
+        document.querySelector('input').addEventListener('keypress', function(evt){
+            console.dir(evt);
+            console.log(evt);
+        })
+    </script>
+</body>
+</html>
