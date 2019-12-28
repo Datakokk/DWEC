@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 03/12/2019-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Dado(caras = 6){
+            this.caras = caras;
+            this.color = 0;
+        }
+        //undefined
+        d1 = new Dado()
+        //Dado {caras: 6, color: 0}
+        Dado.prototype.lanzar = function(){
+            this.valor =  Math.floor(Math.random() * this.caras) + 1
+        }
+        // ƒ (){
+        //     this.valor =  Math.floor(Math.random() * this.caras) + 1
+        // }
+        d1.lanzar()
+        //undefined
+        d2 = new Dado()
+        //Dado {caras: 6, color: 0}
+        d2.lanzar()
+        //undefined
+        d2.valor
+        //3
+        d1.valor
+        //6
+        function crearDados(caras = 6){
+            const o = new Object();
+            o.caras = caras;
+            o.valor = 0;
+            o.__proto__.lanzar = Dado.prototype.lanzar.call(o);
+            return o;
+        }
+        //undefined
+        d3 = crearDados(6);
+        //{caras: 6, valor: 2} 
+    </script>
+</body>
+</html>
