@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>REloj v2</title>
+</head>
+<body>
+    <p>Para el cronometro cuando haya pasado <span></span> segundos</p><button>Lanzar</button>
+    <script>
+        const SEGUNDO = 1000;
+        const contenedor = document.querySelector('p > span');
+        const boton = document.getElementsByTagName('button')[0];
+
+        let id = null;
+        let contador = 0;
+        let numSeg;
+
+        numSeg = between(10,10);
+        contenedor.textContent = numSeg;
+
+        //boton.click();
+
+        function between(a,b){
+            const va = Math.min(a,b);
+            const vb = Math.max(a,b);
+
+            return Math.floor(Math.random() * (vb-va +1)) +va;
+        }
+
+        boton.addEventListener('click', ()=> {
+        if(id){
+                clearInterval(id);
+                id = null;
+                boton.textContent = 'Lanzar';
+                console.log(contador === numSeg,contador,numSeg);
+        }else{
+            //id = setInterval(mostrarValor, 0.2 * SEGUNDO, 'Hola');
+            
+            id = setInterval(contar, 1 * SEGUNDO);
+            boton.textContent = 'Parar';
+        }
+            
+        });
+
+
+        function mostrarValor(saludo){
+            console.log(saludo);
+            //contenedor.textContent = +contenedor.textContent + 1;
+            contenedor.textContent =new Date().toLocaleTimeString(); //para contar segundos.
+        }
+
+        function contar(){
+                (numSeg)? numSeg--:clearInterval(id);
+                contenedor.textContent = numSeg;
+                numSeg ? numSeg : boton.textContent = 'Lanzar';
+        }
+
+    </script>
+</body>
+</html>
