@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 11/12/2019-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Herencia Objetos(coche)</title>
+</head>
+<body>
+    <script>
+        function Coche(modelo ="4 ruedas", carga="1Tn", matricula="1111"){
+            this.modelo = modelo;
+            this.carga = carga;
+            this.matricula = matricula;
+        }
+
+        Coche.prototype.mostrarInfo = function(){
+            console.log(this.modelo + ', '+this.carga);
+        }
+
+        Coche.prototype.imprimeMatricula = function(){
+            console.log(this.matricula);
+        }
+
+        function CocheConRemolque(modelo ="4 ruedas", carga="1Tn", matricula="1111",cargaR = "3tn"){
+            Coche.call(this, modelo, carga, matricula);
+            this.cargaR = cargaR;
+        }
+
+        CocheConRemolque.prototype = Object.create(Coche.prototype);
+        CocheConRemolque.prototype.constructor = CocheConRemolque;
+
+        CocheConRemolque.prototype.mostrarInfo = function(){
+            Coche.prototype.mostrarInfo.call(this);
+            console.log(this.cargaR);
+        } 
+        /*
+        function Coche(modelo ="4 ruedas", carga="1Tn", matricula="1111"){
+            this.modelo = modelo;
+            this.carga = carga;
+            this.matricula = matricula;
+        }
+
+        Coche.prototype.mostrarInfo = function(){
+            console.log(this.modelo + ', '+this.carga);
+        }
+
+        Coche.prototype.imprimeMatricula = function(){
+            console.log(this.matricula);
+        }
+
+        function CocheConRemolque(modelo ="4 ruedas", carga="1Tn", matricula="1111",cargaR = "3tn"){
+            Coche.call(this, modelo, carga, matricula);
+            this.cargaR = cargaR;
+        }
+
+        CocheConRemolque.prototype = Object.create(Coche.prototype);
+        CocheConRemolque.prototype.constructor = CocheConRemolque;
+
+        CocheConRemolque.prototype.mostrarInfo = function(){
+            Coche.prototype.mostrarInfo.call(this);
+            console.log(this.cargaR);
+        }
+        ƒ (){
+            Coche.prototype.mostrarInfo.call(this);
+            console.log(this.cargaR);
+        }
+c1 = new Coche();
+Coche {modelo: "4 ruedas", carga: "1Tn", matricula: "1111"}
+c1.mostrarInfo();
+VM6016:8 4 ruedas, 1Tn
+undefined
+ccr1 = new CocheConRemolque();
+CocheConRemolque {modelo: "4 ruedas", carga: "1Tn", matricula: "1111", cargaR: "3tn"}
+ccr1.mostrarInfo();
+VM6016:8 4 ruedas, 1Tn
+VM6016:25 3tn
+        */
+    </script>
+</body>
+</html>
