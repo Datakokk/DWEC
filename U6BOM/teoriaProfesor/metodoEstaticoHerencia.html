@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 11/12/2019-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MétodoEstatico herencia</title>
+</head>
+<body>
+    <script>
+        //Clase Persona
+        function Persona(nombre, apellidos){
+            this.nombre = nombre;
+            this.apellidos = apellidos;
+        }
+        //undefined
+
+        Persona.prototype.toString = function(){
+            return this.nombre + ' ' + this.apellidos;
+        }
+       /* ƒ (){
+            return this.nombre + ' ' + this.apellidos;
+        }*/
+
+        //metodo estatico
+        Persona.comprobar = function(){
+            return 'ok';
+        }
+        /*ƒ (){
+            return 'ok';
+        }*/
+
+        //metodo estatico
+        Persona.comprobar2 = function(dato){
+            return typeof(dato) === 'string';
+        }
+        /*ƒ (dato){
+            return typeof(dato) === 'string';
+        }*/
+
+        //variable estatica
+        Persona.contador = 0;
+        //0
+
+        let p1 = new Persona('Alberto',"Sanchez");
+        //undefined
+        p1
+        //Persona {nombre: "Alberto", apellidos: "Sanchez"}
+
+        function Estudiante(nombre, apellidos, matricula){
+            Persona.call(this,nombre,apellidos);
+            this.matricula = matricula;
+        }
+        //undefined
+        Estudiante.prototype = Object.create(Persona.prototype)
+        //Persona {}
+        //Nos hemos cargado anteriormente el constructor
+        Estudiante.prototype.constructor = Estudiante;
+        /*ƒ Estudiante(nombre, apellido, matricula){
+            Persona.call(this,nombre,apellido);
+            this.matricula = matricula;
+        }*/
+        e = new Estudiante('Ana','calzas', 1)
+        /*Estudiante {nombre: "Ana", apellidos: "calzas", matricula: 1}apellidos: "calzas"matricula: 1nombre: "Ana"__proto__: Personaconstructor: ƒ Estudiante(nombre, apellido, matricula)__proto__: constructor: ƒ Persona(nombre, apellido)__proto__: constructor: ƒ Object()hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()*/
+        e.toString()
+        //"Ana calzas"
+        Estudiante.prototype.toString = function(){
+            return Persona.prototype.toString.call(this) + ', matricula:('+ this.matricula +')';
+        }
+        /*ƒ (){
+            return Persona.prototype.toString.call(this) + '('+ this.matricula +')';
+        }*/
+        e.toString()
+        //"Ana calzas, matricula:(1)"
+        
+        Object.seal
+        //ƒ seal() { [native code] }
+    </script>
+</body>
+</html>
