@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 11/12/2019-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Persona(nombre,edad){
+            this.nombre = nombre;
+            this.edad = edad;
+        }
+        //undefined
+        //crea un objeto en el interior con new
+        ///undefined
+        Persona('Juan', 5)
+        //undefined
+        //(si ponemos en consola)window.nombre
+        //(devuelve)"Juan" porque hemos creado el objeto persona en el global.
+        a = new Persona('Juan', 5)
+        //Persona {nombre: "Juan", edad: 5}
+        //Persona te lo crea en window sin new porque se llama a la funcion desde el global
+        //undefined
+        a
+        //Persona {nombre: "Juan", edad: 5}
+        dir(a)
+        //VM576:1 
+        //Persona
+        //edad: 5
+        //nombre: "Juan"
+        //__proto__: Object
+        //undefined
+        //dir es para mostrar el objeto en lugar del literal
+        //undefined
+        b = new Persona('ana', 6)
+        //Persona {nombre: "ana", edad: 6}
+
+
+        /**************************************************************************************************************/
+        function Ordenador(modelo, ram, discoDuro){
+            this.modelo = modelo;
+            this.ram = ram;
+            this.discoDuro = discoDuro;
+        }
+        //undefined
+        o1 = new Ordenador()
+        //si se omite los argumentos, nos da undefined
+        //Ordenador {modelo: undefined, ram: undefined, discoDuro: undefined}
+        function Ordenador(modelo, ram, discoDuro){
+            this.encender = function(){
+                console.log('Iniciandose.....');
+            };
+            this.modelo = modelo;
+            this.ram = ram;
+            this.discoDuro = discoDuro;
+        }
+        //undefined
+        //Creando un objeto
+        Ordenador.prototype.apagar = function(){
+            console.log('apagando...¡');
+        }
+        /*ƒ (){
+            console.log('apagando...¡');
+        }*/
+        Ordenador.prototype.reiniciando = function(){console.log('no apague el ordenador...., se esta reniciando');}
+        //ƒ (){console.log('no apague el ordenador...., se esta reniciando');}
+        o1.apagar()
+        //apagando...¡
+        o1.reiniciando();
+        //no apague el ordenador...., se esta reniciando
+        
+        o1.prototype.saludar = function(){
+            console.log('Saludar');
+        }
+        /*VM1994:1 Uncaught TypeError: Cannot set property 'saludar' of undefined
+            at <anonymous>:1:22
+        (anonymous) @ VM1994:1*/
+        o1.__proto__.saludar = function(){
+            console.log('saludar');
+        }
+        /*ƒ (){
+            console.log('saludar');
+        }*/
+        o2 = new Ordenador()
+        //Ordenador {modelo: undefined, ram: undefined, discoDuro: undefined, encender: ƒ}
+        o2.__proto__.contador = 0;
+        //0
+        o1.contador++
+        //0
+        o1.contador
+        //1
+        ++o1.contador
+        //2
+        o2.__proto__.contador = 8
+        //8
+        o2.__proto__.contador
+        //8
+        o2.contador
+        //2
+        //undefined
+        delete 04.contador
+        //true
+        o2.contador
+        //undefined
+        o2.__proto__.contador
+        //8
+        delete o2.__proto__.contador
+        //true
+        o2.__proto__.contador
+        //undefined
+    </script>
+</body>
+</html>
