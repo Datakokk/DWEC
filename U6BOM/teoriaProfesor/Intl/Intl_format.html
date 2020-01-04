@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 10/12/2019-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Intl</title>
+    <script src="datos.js"></script>
+</head>
+<body>
+    <main>
+
+    </main>
+    <script>
+        'use strict';
+
+        const app = (function(){
+            function iniciar(){
+
+                const contenedor = document.querySelector('main');
+                contenedor.appendChild(crearCabecera('Estadistica'));
+                contenedor.appendChild(crearSelector());
+                contenedor.appendChild(crearTablaDesdeObjetos(datos));
+            }
+
+            function crearCabecera(texto){
+                const h = document.createElement('h3');
+                h.appendChild(document.createTextNode(texto));
+
+                return h;
+            }
+
+            function crearSelector(){
+                const locales = ["","en-US","es-ES","lt-LT","nb-NO","ko"]
+                const cadenas = ["No especificado","Estados Unidos","España","Lituania","Noruega", "Korea"];
+
+                const selector = document.createElement('select');
+                locales.forEach((v,i)=>{
+                    let opt = document.createElement('option');
+                    opt.appendChild(document.createTextNode(cadenas[i]));
+
+                    opt.setAttribute('value',v);
+
+                    selector.appendChild(opt);
+                });
+
+                selector.addEventListener('change', gestorSelector);
+
+                return selector;
+            }
+
+            function crearTablaDesdeObjetos(datos){
+                const tabla = document.createElement('table');
+                const cabecera = Object.keys(datos[0]);console.log(cabecera+'cabecera');
+                tabla.appendChild(crearTHead(cabecera));
+                tabla.appendChild(crearTBody(datos));
+
+                function crearTHead(cabecera){
+          
+                    const thead = document.createElement('thead');
+                    const tr = document.createElement('tr');
+
+                    cabecera.forEach(v =>{
+                        let th = document.createElement('th');
+                        th.appendChild(document.createTextNode(v[0].toUpperCase()+v.substr(1)));
+
+                        tr.appendChild(th);
+                    })
+                    thead.appendChild(tr);
+                    return thead;
+                }
+                return tabla
+            }
+
+
+            function crearTBody(datos){
+                const tbody = document.createElement('tbody');
+                const llaves = Object.keys(datos[0]);
+
+                datos.forEach(fila =>{
+                    const tr = document.createElement('tr');
+                    llaves.forEach(llave =>{
+                        const td = document.createElement('td');
+                        td.appendChild(document.createTextNode(fila[llave]));console.log(fila[llave]);
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+                return tbody;
+            }
+            
+            function gestorSelector(e){
+                const leng = e.currentTarget.value;
+                const datosFormateados = formatearDatos(datos,leng);
+              
+                const bodyNuevo = crearTBody(datosFormateados);
+                const tb = document.querySelector('table > tbody');
+                tb.parentNode.replaceChild(bodyNuevo, tb);
+                
+            }
+
+            function formatearDatos(datos, leng){
+                const clave = Object.keys(datos[0]);
+
+                return datos.map(fila =>{
+                    const obj = {};
+                    obj[clave[0]] = formatearFecha(fila[clave[0]],leng);
+                    obj[clave[1]] = formatearNumero(fila[clave[1]],leng);
+                    obj[clave[2]] = formatearMoneda(fila[clave[2]],leng);
+                    
+                    return obj;
+                });
+            }
+
+            function formatearNumero(numero, leng){
+                leng = leng || navigator.language;
+
+                const formateador = new Intl.NumberFormat(leng);
+                return formateador.format(numero);
+            }
+
+            function formatearMoneda(valor, leng){
+                leng = leng || navigator.language;
+
+                const formateador = new Intl.NumberFormat(leng, {style:'currency',currency:"EUR"});
+                return formateador.format(valor);
+            }
+
+            function formatearFecha(fecha, leng){
+                const opts = {day:"numeric", year:"numeric", month:"long", weekday:"long"};
+                leng = leng || navigator.language;
+                
+                let formateador = new Intl.DateTimeFormat(leng,opts);
+                return formateador.format(new Date(fecha));
+            }
+
+            // function formatearFecha(fecha, leng){
+            //     const opts = {day:'numeric',year:"numeric", month:"long", weekday:"long"};
+            //     leng = leng || navigator.language;
+            //     return new Date(fecha).toLocaleString(leng, opts);
+            //     const formateador = new Intl.DateTimeFormat(leng,opts);
+            //     return formateador.format(new Date(fecha));
+            // }
+
+
+            return {lanzar:iniciar};
+        })();
+
+
+        app.lanzar();
+    </script>
+
+    <!-- <select name="" id="">
+        <option value="">No especificado</option>
+    </select> -->
+</body>
+</html>
