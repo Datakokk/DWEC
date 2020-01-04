@@ -9,33 +9,37 @@
 </head>
 <body>
     <script>
-        //no es necesario window aunque localStorage y sessionStorage
+        //no es necesario window aunque localstorage y sessionStorage
 
         const objeto = {
             id:1,
             nombre: "Juan"
         };
         console.dir(objeto);
+        console.log(objeto);
         
         localStorage.datos = JSON.stringify(objeto);
 
         objeto.id = 2;
         miObj = JSON.parse(localStorage.datos);
+        console.log(localStorage);
         console.dir(miObj);
 
 
-        /************************************************************************http://www.cfauth.com/?cfru=aHR0cDovL3d3dy5tc2Z0Y29ubmVjdHRlc3QuY29tL3JlZGlyZWN0*/
+        /*************************************************************************/
         const aGuardar = {
             objeto:objeto,
             fecha: new Date()
         }
 
         localStorage.setItem('dato','unaCadena');
-        console.dir(aGuardar);
         
+        console.dir(aGuardar);
+        console.log(aGuardar);
         localStorage.setItem('misDatos',JSON.stringify(aGuardar));
 
         miObj = JSON.parse(localStorage.getItem('misDatos'));
+        console.log(localStorage);
         console.dir(miObj);
 
         /*desaparecen todos*///localStorage.clear();
@@ -56,11 +60,13 @@
         };
 
         console.dir(objeto2);
+        console.log(objeto2);
         localStorage.setItem('datos2',JSON.stringify(objeto2));
 
         objeto2.id = 2;
         miObj2 = JSON.parse(localStorage.getItem('datos2'));
         console.dir(miObj);
+        console.log(localStorage);
     </script>
 </body>
 </html>
