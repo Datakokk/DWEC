@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 10/12/2019-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Geoposition</title>
+</head>
+<body>
+    <div id="ubicacion"></div>
+    <button id=geo>Mi ubicación</button>
+    <script>
+        document.getElementById('geo').addEventListener('click', obtenerGeo, false);
+        const info = document.getElementById('ubicacion');
+
+        function obtenerGeo(){
+            navigator.geolocation.getCurrentPosition(mostrarGeo, mostrarError);
+        }
+
+        function mostrarGeo(posicion){
+            info.innerHTML = 
+            `Latitud: ${posicion.coords.latitude}<br>
+             Longitude: ${posicion.coords.longitude}<br>
+             Exactitud: ${posicion.coords.accuracy}<br>
+            `;
+        }
+
+        function mostrarError(err){
+            info.innerHTML = 
+            `Mansa: ${err.message}<br>
+             Codigo: ${err.code}<br>
+            `;
+        }
+    </script>
+</body>
+</html>
