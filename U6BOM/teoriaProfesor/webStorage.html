@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 12/12/2019-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Web Storage</title>
+</head>
+<body>
+    <script>
+        //no es necesario window aunque localStorage y sessionStorage
+
+        const objeto = {
+            id:1,
+            nombre: "Juan"
+        };
+        console.dir(objeto);
+        
+        localStorage.datos = JSON.stringify(objeto);
+
+        objeto.id = 2;
+        miObj = JSON.parse(localStorage.datos);
+        console.dir(miObj);
+
+
+        /************************************************************************http://www.cfauth.com/?cfru=aHR0cDovL3d3dy5tc2Z0Y29ubmVjdHRlc3QuY29tL3JlZGlyZWN0*/
+        const aGuardar = {
+            objeto:objeto,
+            fecha: new Date()
+        }
+
+        localStorage.setItem('dato','unaCadena');
+        console.dir(aGuardar);
+        
+        localStorage.setItem('misDatos',JSON.stringify(aGuardar));
+
+        miObj = JSON.parse(localStorage.getItem('misDatos'));
+        console.dir(miObj);
+
+        /*desaparecen todos*///localStorage.clear();
+        //localStorage.removeItem('lo que se desea remover')
+
+        /***************************************************************************/
+
+        // localStorage.contador = 1;
+        // sessionStorage.contador = 2;
+        //console.log(window.localStorage.contador);
+        //console.log(window.sessionStorage.contador);
+
+        /****************************************************************************/
+
+        const objeto2 = {
+            id:1,
+            nombre: "Ana"
+        };
+
+        console.dir(objeto2);
+        localStorage.setItem('datos2',JSON.stringify(objeto2));
+
+        objeto2.id = 2;
+        miObj2 = JSON.parse(localStorage.getItem('datos2'));
+        console.dir(miObj);
+    </script>
+</body>
+</html>
