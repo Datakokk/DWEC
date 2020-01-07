@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 05/12/2019-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Object.defineProperty</title>
+</head>
+<body>
+    <script>
+        function Persona(nombre, apellidos){
+            let dni;
+            
+            function devolverNIF(){return `${dni}`};//despues del ${dni}?(puede que sea una ternaria)
+
+            this.nombre = nombre;
+
+            this.apellidos = apellidos;
+
+            Object.defineProperty(this,'DNI',{
+                get:function(){return dni;},
+                set:function(valor){dni = valor;}
+            });
+
+            //this.setDNI = function(valor){dni = valor;}; este y el de a continuacion se parece a java().
+            //this.getDNI = function(){return dni;};
+            this.getNIF = function(){return devolverNIF();};
+        }
+    </script>
+</body>
+</html>
