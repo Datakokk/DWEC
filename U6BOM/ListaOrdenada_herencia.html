@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 05/12/2019-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clase Lista</title>
+</head>
+<body>
+    <script>
+        //clase Lista(solo números) con los métodos
+        //- add(elemento)
+        //- remove(indice)
+        //- get(indice)
+        //- size();
+        //- show()
+
+        /*
+        miLista = new ListaOrdenada();
+        miLista.add(2);
+        miLista.add(5);
+        miLista.add(0); -->2
+        miLista.show(); (muestra ordenadamente);
+        */
+
+        //class ListaOrdenada hereda de lista
+
+
+        function Lista(){
+            this.arrayLista = [];
+        }
+
+        Lista.prototype.add = function(elemento){
+            (typeof elemento == "number") ? this.arrayLista.push(elemento) : console.log("Debe se introducir un número;")
+        }
+
+        Lista.prototype.remove = function(indice){
+            (indice < this.arrayLista.length) ? this.arrayLista.splice(indice,1) : console.log("Ese indice no existe, pruebe con otro.");
+            
+        }
+
+        Lista.prototype.get = function(indice){
+            console.log(`indice[${indice}] = ${this.arrayLista[indice]}`);
+        }
+
+        Lista.prototype.size = function(){
+            console.log(`La longitud es: ${this.arrayLista.length}`);
+        }
+
+        Lista.prototype.show = function(){
+            console.log(this.arrayLista);
+        }
+
+        function ListaOrdenada(){
+            Lista.call(this);
+        }
+
+        ListaOrdenada.prototype = Object.create(Lista.prototype);
+        ListaOrdenada.prototype.constructor = ListaOrdenada.prototype;
+
+        ListaOrdenada.prototype.show = function(){
+            console.log(this.arrayLista.sort((a,b)=>a-b));
+        }
+    </script>
+</body>
+</html>
