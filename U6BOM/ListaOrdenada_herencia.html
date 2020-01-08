@@ -41,7 +41,7 @@
         }
 
         Lista.prototype.get = function(indice){
-            console.log(`indice[${indice}] = ${this.arrayLista[indice]}`);
+            (indice < this.arrayLista.length) ? console.log(`indice[${indice}] = ${this.arrayLista[indice]}`) : console.log("Ese indice no existe, pruebe con otro.");
         }
 
         Lista.prototype.size = function(){
