@@ -93,7 +93,7 @@
       function moverPopup(e){
           const child = this.lastChild;
           
-          child.style.top = (e.offsetY ) + 'px';       // e.page es donde esta el raton con respecto a la pagina
+          child.style.top = (e.offsetY ) + 'px';      
           child.style.left = (e.offsetX + 20)+ 'px';
       }
 
