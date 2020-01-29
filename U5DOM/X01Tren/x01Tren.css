@@ -1,0 +1,61 @@
+body, h1, h2, h3, h4, div, p , nav, section, aside, article, footer{
+    margin:0;
+    padding: 0;
+    border: 0;
+    font-size: 1em;
+    box-sizing: border-box;
+} 
+
+div{margin-top: 3em;
+    text-align: center;
+}
+
+div > h1{
+    font-size: 2em;
+}
+
+div ul{
+    margin: 1em auto;
+}
+
+div li{ 
+    display: inline-block;
+    margin-right: .5em;
+    padding: .5em;
+    background-color: aqua;
+    cursor: pointer;
+}
+
+table{
+    margin: 0 auto;
+}
+
+table > caption{
+    background-color: springgreen;
+}
+
+table thead th{
+    background-color: rebeccapurple;
+    color:#fff;
+    font-weight: lighter;
+    padding: 0.3em 1em;
+}
+
+table tbody tr:nth-of-type(2n + 1){
+    background-color: darkorange;
+}
+
+table tbody tr:nth-of-type(2n){
+    background-color: darkgray;
+}
+
+table tbody tr td{
+    text-align: center;
+}
+
+footer{
+    background-color: springgreen;
+    text-align: center;
+    width: 35%;
+    margin: 0 auto;
+}
